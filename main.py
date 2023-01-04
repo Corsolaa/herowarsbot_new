@@ -7,7 +7,9 @@ import discord
 load_dotenv()
 token = os.getenv("TOKEN")
 prefix = os.getenv("PREFIX")
-bot = commands.Bot(intents=discord.Intents.default(), command_prefix=prefix, case_insensitive=True)
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(intents=intents, command_prefix=prefix)
 
 
 @bot.event
@@ -17,9 +19,9 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    print(f"{message.channel} >> {message.author}: {message.content}")
-    if message.author != bot.user:
-        await message.channel.send(message.author)
+    print(f"{message.guild.name} -=- {message.channel} >> {message.author}: {message.content}")
+    if message.content.lower() == "hello julius":
+        await message.channel.send(f"Hello {message.author.name}, how are you doing?")
 
 
 if __name__ == "__main__":
