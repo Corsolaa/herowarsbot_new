@@ -22,6 +22,11 @@ async def ping(ctx):
     await ctx.send("pong")
 
 
+@bot.command()
+async def purge(ctx, number: int = 99):
+    await ctx.channel.purge(limit=number + 1)
+
+
 @bot.event
 async def on_message(message):
     print(f"{message.guild.name} -=- {message.channel} >> {message.author}: {message.content}")
