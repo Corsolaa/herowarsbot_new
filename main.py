@@ -1,15 +1,37 @@
 import os
+import pymysql
+import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 
-import discord
 
-load_dotenv()
-token = os.getenv("TOKEN")
-prefix = os.getenv("PREFIX")
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(intents=intents, command_prefix=prefix, case_insensitive=True)
+def get_bot():
+    load_dotenv()
+    prefix = os.getenv("PREFIX")
+    intents = discord.Intents.default()
+    intents.message_content = True
+    return commands.Bot(intents=intents, command_prefix=prefix, case_insensitive=True)
+
+
+bot = get_bot()
+
+
+def mysql_execute(mysql_string):
+    cur.execute(mysql_string)
+    output = cur.fetchall()
+    return output
+
+
+connection = pymysql.connect(
+    host="localhost",
+    user="hero_wars",
+    passwd="",
+    database="hero_wars"
+)
+cur = connection.cursor()
+output1 = mysql_execute("SHOW TABLES LIKE 'messages'")
+print(output1)
+connection.close()
 
 
 @bot.event
@@ -36,4 +58,4 @@ async def on_message(message):
 
 
 if __name__ == "__main__":
-    bot.run(token)
+    bot.run(os.getenv("TOKEN"))
