@@ -23,7 +23,7 @@ def mysql_execute(mysql_string):
 
 
 connection = pymysql.connect(
-    host="localhost",
+    host="corsolaa.ddns.net",
     user="hero_wars",
     passwd="",
     database="hero_wars"
