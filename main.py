@@ -22,21 +22,25 @@ def mysql_execute(mysql_string):
     return output
 
 
-connection = pymysql.connect(
-    host="corsolaa.ddns.net",
-    user="hero_wars",
-    passwd="",
-    database="hero_wars"
-)
+def mysql_connect():
+    return pymysql.connect(
+        host="corsolaa.ddns.net",
+        user="hero_wars",
+        passwd=os.getenv("DB-PASS"),
+        database="hero_wars"
+    )
+
+
+connection = mysql_connect()
 cur = connection.cursor()
 output1 = mysql_execute("SHOW TABLES LIKE 'messages'")
-print(output1)
+print(len(output1))
 connection.close()
 
 
 @bot.event
 async def on_ready():
-    print(f"{bot.user} has connected to Discord!")
+    print(f"{bot.user.name} has connected to Discord!")
 
 
 @bot.command()
@@ -44,8 +48,8 @@ async def ping(ctx):
     await ctx.send("pong")
 
 
-@bot.command()
-async def purge(ctx, number: int = 99):
+@bot.command(name="purge")
+async def delete_messages(ctx, number: int = 99):
     await ctx.channel.purge(limit=number + 1)
 
 
