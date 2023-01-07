@@ -1,9 +1,14 @@
 import os
+import time
+from datetime import datetime
+
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 
 from mysql_configuration import mysql_execute
+from mysql_configuration import mysql_check_table
+from mysql_configuration import mysql_create_message_table
 
 
 def get_bot():
@@ -16,8 +21,13 @@ def get_bot():
 
 bot = get_bot()
 
-output1 = mysql_execute("SHOW TABLES")
-print(output1)
+print(mysql_check_table("messages"))
+timestamp = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+print(mysql_execute("INSERT INTO `messages` (`server`, `channel`, `name`, `message`, `timestamp`) VALUES ('server', 'my_server', NULL, NULL, NULL)"))
+
+
+
+# mysql_create_message_table()
 
 
 @bot.event
