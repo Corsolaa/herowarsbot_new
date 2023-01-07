@@ -1,8 +1,9 @@
 import os
-import pymysql
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
+
+from mysql_configuration import mysql_execute
 
 
 def get_bot():
@@ -15,27 +16,8 @@ def get_bot():
 
 bot = get_bot()
 
-
-def mysql_execute(mysql_string):
-    cur.execute(mysql_string)
-    output = cur.fetchall()
-    return output
-
-
-def mysql_connect():
-    return pymysql.connect(
-        host="corsolaa.ddns.net",
-        user="hero_wars",
-        passwd=os.getenv("DB-PASS"),
-        database="hero_wars"
-    )
-
-
-connection = mysql_connect()
-cur = connection.cursor()
-output1 = mysql_execute("SHOW TABLES LIKE 'messages'")
-print(len(output1))
-connection.close()
+output1 = mysql_execute("SHOW TABLES")
+print(output1)
 
 
 @bot.event
