@@ -13,8 +13,9 @@ def mysql_execute(mysql_string):
 
 
 def mysql_create_message_table():
-    mysql_execute("CREATE TABLE `messages` ( `server` TEXT, `channel` TEXT, `name` TEXT, `message` TEXT, `timestamp` "
-                  "DATE DEFAULT CURRENT_TIMESTAMP )")
+    mysql_execute(
+        "CREATE TABLE IF NOT EXISTS `messages` ( `server` TEXT, `channel` TEXT, `name` TEXT, `message` TEXT, "
+        "`timestamp` DATE DEFAULT CURRENT_TIMESTAMP() )")
 
 
 def mysql_check_table(table):
@@ -28,3 +29,6 @@ def mysql_connect():
         passwd=os.getenv("DB-PASS"),
         database="hero_wars"
     )
+
+
+# mysql_execute("INSERT INTO 'messages' ()")

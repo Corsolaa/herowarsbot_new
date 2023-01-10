@@ -1,6 +1,4 @@
 import os
-import time
-from datetime import datetime
 
 import discord
 from dotenv import load_dotenv
@@ -21,17 +19,13 @@ def get_bot():
 
 bot = get_bot()
 
-print(mysql_check_table("messages"))
-timestamp = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-print(mysql_execute("INSERT INTO `messages` (`server`, `channel`, `name`, `message`, `timestamp`) VALUES ('server', 'my_server', NULL, NULL, NULL)"))
-
-
-
-# mysql_create_message_table()
+# print(mysql_check_table("messages"))
+print(mysql_execute("INSERT INTO messages VALUES ('server', 'channel', 'username', 'this is the message');"))
 
 
 @bot.event
 async def on_ready():
+    mysql_create_message_table()
     print(f"{bot.user.name} has connected to Discord!")
 
 
