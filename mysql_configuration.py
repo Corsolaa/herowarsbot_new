@@ -29,6 +29,3 @@ def mysql_connect():
         passwd=os.getenv("DB-PASS"),
         database="hero_wars"
     )
-
-
-# mysql_execute("INSERT INTO 'messages' ()")

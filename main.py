@@ -4,8 +4,8 @@ import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 
-from mysql_configuration import mysql_execute
-from mysql_configuration import mysql_check_table
+# from mysql_configuration import mysql_execute
+# from mysql_configuration import mysql_check_table
 from mysql_configuration import mysql_create_message_table
 
 
@@ -19,8 +19,7 @@ def get_bot():
 
 bot = get_bot()
 
-# print(mysql_check_table("messages"))
-print(mysql_execute("INSERT INTO messages VALUES ('server', 'channel', 'username', 'this is the message');"))
+# print(mysql_execute("INSERT INTO messages VALUES ('server', 'channel', 'username', 'this is the message');"))
 
 
 @bot.event
